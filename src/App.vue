@@ -1,13 +1,24 @@
 <template lang="pug">
 #app
-  #nav
-    router-link(to="/") Home
-    router-link(to="/about") About
-  router-view
+  .container
+    UserCardForm
+    router-view
 </template>
 
+<script>
+import UserCardForm from "./components/UserCardForm";
+export default {
+  components: {
+    UserCardForm,
+  },
+};
+</script>
+
 <style lang="stylus">
+body {
+  margin: 0;
+}
+
 #app {
-  background-color: #ccc;
 }
 </style>

@@ -22,15 +22,21 @@ export default {
   padding: 40px 0;
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
 .container {
   max-width: 960px;
   padding: 0 10px;
   margin: 0 auto;
+}
+
+.col {
+  float: left;
+
+  &-card {
+    padding-right: 70px;
+  }
+
+  &-payment {
+    float: right;
+  }
 }
 </style>

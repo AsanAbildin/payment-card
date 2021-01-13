@@ -1,8 +1,11 @@
 <template lang="pug">
 #app
   .container
-    UserCardForm
-    router-view
+    .row
+      .col.col-card
+        UserCardForm
+      .col.col-payment
+        router-view
 </template>
 
 <script>
@@ -15,10 +18,19 @@ export default {
 </script>
 
 <style lang="stylus">
-body {
-  margin: 0;
+#app {
+  padding: 40px 0;
 }
 
-#app {
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.container {
+  max-width: 960px;
+  padding: 0 10px;
+  margin: 0 auto;
 }
 </style>

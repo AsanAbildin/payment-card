@@ -1,6 +1,9 @@
 <template lang="pug">
 .payment-amount
-  input.payment-amount-input(placeholder="СУММА ПЛАТЕЖА")
+  input.payment-amount-input(
+    placeholder="СУММА ПЛАТЕЖА",
+    v-money="{precision: 0, suffix: ' ₸', thousands: ' '}"
+  )
   .payment-amount-data
     .desc-list
       .desc-item

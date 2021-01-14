@@ -19,7 +19,10 @@
       input.checkbox-input(type="checkbox")
       span.checkbox-desc
         | Я ознокомлен и присоединяюсь&nbsp;
-        a(target="_blank", href="https://www.youtube.com/watch?v=j7CCH49Tohs") к договору
+        a(
+          target="_blank",
+          href="https://paybox.money/uploads/docs/kz/public-offer-paybox-money.pdf"
+        ) к договору
 
   .payment-amount-message.mt-1 Комиссия может быть удержана банком эмитентом карты отправителя
 </template>

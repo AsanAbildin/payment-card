@@ -1,16 +1,18 @@
 <template lang="pug">
 .user-card-group
-  label.user-card-label Номер карты
+  label.user-card-label(for="card-part-1") Номер карты
   .user-card-inputs
     input.user-card-input.user-card-input--card-number(
       v-for="(number, index) in splitNumbers",
       :key="`number-${index}`",
       :readonly="readonly",
+      :id="`card-part-${index + 1}`",
       v-mask="'####'",
       ref="card-part",
       v-model="splitNumbers[index]",
       @input="inputHandler(index)"
     )
+  .user-card-message(v-if="showError") Некорректный номер карты
 </template>
 
 <script>
@@ -18,7 +20,7 @@ export default {
   props: {
     value: {
       type: String,
-      default: null,
+      default: () => "",
     },
     readonly: {
       type: Boolean,
@@ -28,12 +30,33 @@ export default {
 
   data() {
     return {
-      localValue: this.value + "",
       splitNumbers: ["", "", "", ""],
+      localValue: this.value + "",
+      showError: false,
     };
   },
 
   methods: {
+    luhnAlgorithm(digits) {
+      let sum = 0;
+
+      for (let i = 0; i < digits.length; i++) {
+        let cardNum = parseInt(digits[i]);
+
+        if ((digits.length - i) % 2 === 0) {
+          cardNum = cardNum * 2;
+
+          if (cardNum > 9) {
+            cardNum = cardNum - 9;
+          }
+        }
+
+        sum += cardNum;
+      }
+
+      return sum % 10 === 0;
+    },
+
     inputHandler(index) {
       const val = this.splitNumbers[index];
 
@@ -41,6 +64,12 @@ export default {
         if (this.splitNumbers.length !== index + 1) {
           this.$refs["card-part"][index + 1].focus();
         }
+      }
+
+      if (this.value.length === 16) {
+        if (!this.luhnAlgorithm(this.value)) {
+        }
+        console.log(this.luhnAlgorithm(this.value));
       }
 
       this.emitValue(this.splitNumbers.join(""));

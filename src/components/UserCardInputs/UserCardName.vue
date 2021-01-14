@@ -2,15 +2,20 @@
 .user-card-group.user-card-group--name
   label.user-card-label Имя на карте
   .user-card-inputs
-    input.user-card-input.user-card-input--name(v-mask="'S'.repeat(255)")
+    input.user-card-input.user-card-input--name(
+      v-mask="{ mask: 'S'.repeat(255), tokens: {S: { pattern: /[a-z A-Z]/ }}}",
+      v-model="localValue",
+      @input="inputHandler"
+    )
 </template>
 
 <script>
+import UserCardNumber from "./UserCardNumber";
 export default {
-  props: {
-    value: {
-      type: String,
-      default: null,
+  extends: UserCardNumber,
+  methods: {
+    inputHandler() {
+      this.emitValue(this.localValue);
     },
   },
 };

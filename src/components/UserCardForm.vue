@@ -43,7 +43,16 @@ export default {};
     max-height: 30px;
     line-height: 40px;
     vertical-align: middle;
-    margin-left: 15px;
+    margin-left: 10px;
+    max-width: 50px;
+    max-height: 20px;
+
+    @media (min-width: 500px) {
+      max-width: 77px;
+      max-height: 30px;
+      line-height: 40px;
+      margin-left: 15px;
+    }
   }
 }
 
@@ -52,24 +61,41 @@ export default {};
   padding: 12px 20px 35px;
   position: relative;
   overflow: hidden;
+  text-align: left;
+  box-shadow: 0 2px 19px rgba(0, 0, 0, 0.5);
+  width: 300px;
+
+  @media (min-width: 500px) {
+    padding: 12px 20px 35px;
+    width: auto;
+  }
 
   &--front {
     z-index: 2;
-    padding-bottom: 35px;
+    padding-bottom: 17px;
     border: 1px solid $colorBorderPrimary;
     background: #ff005c;
     background: linear-gradient(135deg, #ff005c 0%, #ff0d1f 100%);
+
+    @media (min-width: 500px) {
+      padding-bottom: 35px;
+    }
   }
 
   &--back {
-    padding-top: 186px;
+    padding-top: 176px;
     padding-bottom: 24px;
     padding-right: 40px;
-    height: 266px;
+    height: 248px;
     margin-top: -186px;
     background: linear-gradient(135deg, #BAB8B8 0%, #939292 100%);
     left: 20px;
     border: 1px solid $colorBorderGrey;
+
+    @media (min-width: 500px) {
+      padding-bottom: 24px;
+      height: 266px;
+    }
 
     &:before {
       content: '';
@@ -90,7 +116,11 @@ export default {};
   }
 
   &-group {
-    margin-top: 20px;
+    margin-top: 10px;
+
+    @media (min-width: 500px) {
+      margin-top: 20px;
+    }
 
     &--name {
       float: left;
@@ -98,6 +128,8 @@ export default {};
 
     &--expire {
       float: right;
+      text-align: right;
+      margin-left: 17px;
     }
 
     &--cvc {
@@ -108,8 +140,12 @@ export default {};
   &-label {
     color: $colorWhite;
     text-transform: uppercase;
-    margin-bottom: 10px;
     display: inline-block;
+    font-size: $fz1;
+
+    @media (min-width: 500px) {
+      font-size: $fz2;
+    }
 
     &--expire {
       text-align: right;
@@ -117,14 +153,20 @@ export default {};
   }
 
   &-input {
+    margin-top: 10px;
     border-radius: 5px;
     border: none;
     background-color: #A2172D;
-    height: 44px;
-    padding: 6px 6px 4px;
-    font-size: $fz2;
     color: $colorWhite;
-    font-size: $fz3;
+    height: 36px;
+    font-size: $fz1;
+    padding: 6px 6px 4px;
+
+    @media (min-width: 500px) {
+      height: 44px;
+      padding: 6px 6px 4px;
+      font-size: $fz3;
+    }
 
     &:focus {
       outline: none;
@@ -132,10 +174,18 @@ export default {};
     }
 
     &--card-number {
-      width: 90px;
-      margin-right: 17px;
-      padding: 6px 8px 4px 13px;
-      letter-spacing: 6px;
+      width: 57px;
+      margin-right: 10px;
+      padding: 6px 8px 4px 6px;
+      letter-spacing: 3px;
+
+      @media (min-width: 500px) {
+        margin-right: 17px;
+        width: 90px;
+        height: 44px;
+        padding: 6px 6px 4px;
+        font-size: $fz3;
+      }
 
       &:last-child {
         margin-right: 0;

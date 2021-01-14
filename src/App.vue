@@ -1,11 +1,10 @@
 <template lang="pug">
 #app
-  .container
-    .row
-      .col.col-card
-        UserCardForm
-      .col.col-payment
-        router-view
+  .container.text-center
+    .col.col-card
+      UserCardForm
+    .col.col-payment
+      router-view
 </template>
 
 <script>
@@ -20,6 +19,7 @@ export default {
 <style lang="stylus">
 #app {
   padding: 40px 0;
+  overflow-x: hidden;
 }
 
 .container {
@@ -28,15 +28,22 @@ export default {
   margin: 0 auto;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .col {
-  float: left;
+  display: inline-block;
+  vertical-align: top;
 
   &-card {
-    padding-right: 70px;
+    @media (min-width: 550px) {
+      padding-right: 70px;
+    }
   }
 
   &-payment {
-    float: right;
+    max-width: 250px;
   }
 }
 </style>

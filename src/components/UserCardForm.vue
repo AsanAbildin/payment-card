@@ -6,35 +6,36 @@
         .payment-systems-icons
           img(src="../assets/imgs/visa.svg")
           img(src="../assets/imgs/mastercard.svg")
-      form.user-card-form
-        .user-card-group
-          label.user-card-label Номер карты
-          .user-card-inputs
-            input.user-card-input.user-card-input--card-number
-            input.user-card-input.user-card-input--card-number
-            input.user-card-input.user-card-input--card-number
-            input.user-card-input.user-card-input--card-number
-        .user-card-group.user-card-group--name
-          label.user-card-label Имя на карте
-          .user-card-inputs
-            input.user-card-input.user-card-input--name
-        .user-card-group.user-card-group--expire
-          label.user-card-label.user-card-label--expire Срок действия
-          .user-card-inputs
-            input.user-card-input.user-card-input--expire
-            span.user-card-divider /
-            input.user-card-input.user-card-input--expire
+      .user-card-body
+        UserCardNumber(v-model="userCard.number")
+        UserCardName(v-model="userCard.name")
+        UserCardExpireDate(v-model="userCard.expires")
     .user-card.user-card--back
-      .user-card-group.user-card-group--cvc
-        label.user-card-label CCV/CVC
-        input.user-card-input.user-card-input--cvc
+      UserCardCvc(v-model="userCard.cvc")
 </template>
 
 <script>
-export default {};
+import UserCardNumber from "./UserCardInputs/UserCardNumber";
+import UserCardName from "./UserCardInputs/UserCardName";
+import UserCardExpireDate from "./UserCardInputs/UserCardExpireDate";
+import UserCardCvc from "./UserCardInputs/UserCardCvc";
+export default {
+  components: {
+    UserCardNumber,
+    UserCardName,
+    UserCardExpireDate,
+    UserCardCvc,
+  },
+
+  data() {
+    return {
+      userCard: {},
+    };
+  },
+};
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 .payment-systems-icons {
   text-align: right;
 
@@ -122,16 +123,6 @@ export default {};
       margin-top: 20px;
     }
 
-    &--name {
-      float: left;
-    }
-
-    &--expire {
-      float: right;
-      text-align: right;
-      margin-left: 17px;
-    }
-
     &--cvc {
       text-align: right;
     }
@@ -145,10 +136,6 @@ export default {};
 
     @media (min-width: 500px) {
       font-size: $fz2;
-    }
-
-    &--expire {
-      text-align: right;
     }
   }
 
@@ -182,22 +169,14 @@ export default {};
       @media (min-width: 500px) {
         margin-right: 17px;
         width: 90px;
-        height: 44px;
-        padding: 6px 6px 4px;
         font-size: $fz3;
+        letter-spacing: 6px;
+        padding: 6px 6px 6px 13px;
       }
 
       &:last-child {
         margin-right: 0;
       }
-    }
-
-    &--name {
-      width: 240px;
-    }
-
-    &--expire {
-      width: 70px;
     }
 
     &--cvc {

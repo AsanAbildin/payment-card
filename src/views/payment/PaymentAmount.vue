@@ -2,33 +2,81 @@
 .payment-amount
   input.payment-amount-input(
     placeholder="СУММА ПЛАТЕЖА",
-    v-money="{precision: 0, suffix: ' ₸', thousands: ' '}"
+    v-model="amount",
+    v-money="{precision: 0, suffix: ' ₸', thousands: ' ', masked: false}",
+    @input="inputHandler"
   )
+  .payment-amount-error(v-if="showError && !(this.intAmount > 0)") Введите сумму
   .payment-amount-data
     .desc-list
       .desc-item
         .desc-item-key Комиссия:
-        .desc-item-value 100
+        .desc-item-value {{ comission }}
       .desc-item.mt-1
         .desc-item-key Итоговая сумма:
-        .desc-item-value 1000
+        .desc-item-value {{ completeAmount }}
   .payment-amount-action.mt-1
-    button.btn.btn--primary.btn--full Оплатить
+    button.btn.btn--primary.btn--full(@click="submitClick") Оплатить
 
     label.checkbox.mt-1
-      input.checkbox-input(type="checkbox")
+      input.checkbox-input(type="checkbox", v-model="checked")
       span.checkbox-desc
         | Я ознокомлен и присоединяюсь&nbsp;
         a(
           target="_blank",
           href="https://paybox.money/uploads/docs/kz/public-offer-paybox-money.pdf"
         ) к договору
+    .payment-amount-error(v-if="showError && !checked") Отметьте
 
   .payment-amount-message.mt-1 Комиссия может быть удержана банком эмитентом карты отправителя
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      amount: "",
+      checked: false,
+      showError: false,
+    };
+  },
+  computed: {
+    comission() {
+      const amount = parseInt(this.amount.replace(/ /g, ""));
+      const comission = amount / 100;
+      if (amount <= 0) {
+        return 0;
+      }
+      if (comission <= 500) {
+        return 500;
+      }
+      return amount / 100;
+    },
+    intAmount() {
+      return parseInt(this.amount.replace(/ /g, ""));
+    },
+    completeAmount() {
+      const amount = parseInt(this.amount.replace(/ /g, ""));
+      return amount + this.comission;
+    },
+  },
+
+  methods: {
+    submitClick() {
+      if (this.checked && this.intAmount > 0) {
+        this.$emit("submitClick", this.intAmount);
+        this.showError = false;
+      } else {
+        this.showError = true;
+      }
+    },
+    inputHandler() {
+      if (parseInt(this.amount) < 0) {
+        this.amount = Math.abs(this.amount);
+      }
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -87,6 +135,11 @@ export default {};
     .checkbox {
       margin-top: 15px;
     }
+  }
+
+  &-error {
+    color: $colorPrimary;
+    font-weight: normal;
   }
 
   &-input {

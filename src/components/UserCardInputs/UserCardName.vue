@@ -1,12 +1,15 @@
 <template lang="pug">
 .user-card-group.user-card-group--name
-  label.user-card-label Имя на карте
+  label.user-card-label(for="user-card-name") Имя на карте
   .user-card-inputs
-    input.user-card-input.user-card-input--name(
+    input#user-card-name.user-card-input.user-card-input--name(
       v-mask="{ mask: 'S'.repeat(255), tokens: {S: { pattern: /[a-z A-Z]/ }}}",
       v-model="localValue",
-      @input="inputHandler"
+      @input="inputHandler",
+      @focus="onFocus()",
+      @blur="onBlur()"
     )
+  .user-card-group-message(v-if="showError") Поле обязательное
 </template>
 
 <script>
@@ -16,6 +19,10 @@ export default {
   methods: {
     inputHandler() {
       this.emitValue(this.localValue);
+    },
+    checkValue() {
+      if (!this.localValue.length) this.showError = true;
+      else this.showError = false;
     },
   },
 };

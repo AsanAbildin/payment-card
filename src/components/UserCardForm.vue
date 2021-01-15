@@ -61,10 +61,15 @@ export default {
   border-radius: 14px;
   padding: 12px 20px 35px;
   position: relative;
-  overflow: hidden;
   text-align: left;
   box-shadow: 0 2px 19px rgba(0, 0, 0, 0.5);
   width: 300px;
+
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
 
   @media (min-width: 500px) {
     padding: 12px 20px 35px;
@@ -119,12 +124,19 @@ export default {
   &-group {
     margin-top: 10px;
 
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
     @media (min-width: 500px) {
       margin-top: 20px;
     }
 
-    &--cvc {
-      text-align: right;
+    &-message {
+      color: $colorWhite;
+      font-size: 12px;
     }
   }
 
@@ -158,31 +170,6 @@ export default {
     &:focus {
       outline: none;
       box-shadow: 0 0 4px #fff;
-    }
-
-    &--card-number {
-      width: 57px;
-      margin-right: 10px;
-      padding: 6px 8px 4px 6px;
-      letter-spacing: 3px;
-
-      @media (min-width: 500px) {
-        margin-right: 17px;
-        width: 90px;
-        font-size: $fz3;
-        letter-spacing: 6px;
-        padding: 6px 6px 6px 13px;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-
-    &--cvc {
-      width: 65px;
-      margin-left: 15px;
-      background-color: #77595A;
     }
   }
 }

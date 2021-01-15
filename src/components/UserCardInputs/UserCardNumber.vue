@@ -10,9 +10,11 @@
       v-mask="'####'",
       ref="card-part",
       v-model="splitNumbers[index]",
-      @input="inputHandler(index)"
+      @input="inputHandler(index)",
+      @focus="onFocus()",
+      @blur="onBlur()"
     )
-  .user-card-message(v-if="showError") Некорректный номер карты
+  .user-card-group-message(v-if="showError") Некорректный номер карты
 </template>
 
 <script>
@@ -33,6 +35,7 @@ export default {
       splitNumbers: ["", "", "", ""],
       localValue: this.value + "",
       showError: false,
+      focused: false,
     };
   },
 
@@ -57,6 +60,26 @@ export default {
       return sum % 10 === 0;
     },
 
+    onFocus() {
+      this.focused = true;
+      // this.checkValue();
+    },
+
+    onBlur() {
+      this.focused = false;
+      this.checkValue();
+    },
+
+    checkValue() {
+      if (!this.localValue.length || this.localValue.length !== 16) {
+        this.showError = true;
+      } else if (!this.luhnAlgorithm(this.value)) {
+        this.showError = true;
+      } else {
+        this.showError = false;
+      }
+    },
+
     inputHandler(index) {
       const val = this.splitNumbers[index];
 
@@ -66,12 +89,8 @@ export default {
         }
       }
 
-      if (this.value.length === 16) {
-        if (!this.luhnAlgorithm(this.value)) {
-        }
-        console.log(this.luhnAlgorithm(this.value));
-      }
-
+      this.checkValue();
+      this.localValue = this.splitNumbers.join("");
       this.emitValue(this.splitNumbers.join(""));
     },
     emitValue(value) {
@@ -84,7 +103,7 @@ export default {
 <style lang="stylus">
 .user-card {
   &-input {
-    &--card-number {
+    &.user-card-input--card-number {
       width: 57px;
       margin-right: 10px;
       padding: 6px 8px 4px 6px;

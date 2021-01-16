@@ -9,6 +9,15 @@
 
 <script>
 import UserCardForm from "./components/UserCardForm";
+
+const randomResponse = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const res = Math.round(Math.random(2))
+      resolve(res)
+    }, 1000)
+  })
+}
 export default {
   components: {
     UserCardForm,
@@ -16,24 +25,38 @@ export default {
 
   data() {
     return {
-      valid: false
+      valid: false,
+      loading: false,
     }
   },
 
   methods: {
-    submitClick(val) {
+    submitClick() {
       let hasError = false
       this.$refs.userCardForm.$children.forEach(comp => {
         comp.checkValue()
         if (comp.showError) hasError = true
       })
-      console.log(val)
 
-      this.valid = hasError
+      this.valid = !hasError
 
       if (this.valid) {
-        
+        this.getRequest()
+        .then((res) => {
+          console.log(res)
+        })
       }
+    },
+
+    async getRequest () {
+      this.loading = true
+      const response = await randomResponse()
+      .then((res) => res)
+      .finally(() => {
+        this.loading = false
+      })
+
+      return response
     }
   },
 };

@@ -2,7 +2,10 @@
 .user-card-group.user-card-group--expire
   label.user-card-label.user-card-label--expire(for="card-expire-month") Срок действия
   .user-card-inputs
-    .user-card-input-wrap
+    .user-card-input-wrap(
+      v-click-outside
+      @clickoutside="showDropdownMonth = false"
+    )
       input#card-expire-month.user-card-input.user-card-input--expire(
         v-mask="'##'",
         v-model="month",
@@ -27,7 +30,10 @@
       )
         option(v-for="opt in monthOptions") {{ opt }}
     span.user-card-divider /
-    .user-card-input-wrap
+    .user-card-input-wrap(
+      v-click-outside
+      @clickoutside="showDropdownYear = false"
+    )
       input.user-card-input.user-card-input--expire(
         v-mask="'##'",
         v-model="year",

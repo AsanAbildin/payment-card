@@ -10,6 +10,35 @@ Vue.use(money)
 
 Vue.config.productionTip = false
 
+const emitRunner = (vnode, emit, eventData) => {
+  if (vnode.componentInstance) {
+    vnode.componentInstance.$emit(emit, eventData)
+  } else {
+    const newEvent = new Event(emit);
+    vnode.elm.addEventListener(newEvent, eventData);
+    vnode.elm.dispatchEvent(newEvent)
+  }
+}
+
+const clickBody = (el, vnode) => (event) => {
+  if (event.target === el || event.path.includes(el)) {
+    event.stopPropagation()
+  } else {
+    emitRunner(vnode, 'clickoutside', event);
+  }
+}
+
+Vue.directive('click-outside', {
+  inserted: (el, _binding, vnode) => {
+    document.body.addEventListener('click', clickBody(el, vnode));
+  },
+
+  unbind: () => {
+    document.body.removeEventListener('click', clickBody);
+  }
+})
+
+
 new Vue({
   router,
   store,

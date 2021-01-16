@@ -2,9 +2,9 @@
 #app
   .container.text-center
     .col.col-card
-      UserCardForm
+      UserCardForm(ref="userCardForm")
     .col.col-payment
-      router-view
+      router-view(@submitClick="submitClick")
 </template>
 
 <script>
@@ -12,6 +12,29 @@ import UserCardForm from "./components/UserCardForm";
 export default {
   components: {
     UserCardForm,
+  },
+
+  data() {
+    return {
+      valid: false
+    }
+  },
+
+  methods: {
+    submitClick(val) {
+      let hasError = false
+      this.$refs.userCardForm.$children.forEach(comp => {
+        comp.checkValue()
+        if (comp.showError) hasError = true
+      })
+      console.log(val)
+
+      this.valid = hasError
+
+      if (this.valid) {
+        
+      }
+    }
   },
 };
 </script>

@@ -67,6 +67,7 @@ export default {
         this.$emit("submitClick", this.intAmount);
         this.showError = false;
       } else {
+        this.$emit("submitClick", false);
         this.showError = true;
       }
     },

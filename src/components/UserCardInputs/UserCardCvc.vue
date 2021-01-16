@@ -9,7 +9,9 @@
     @focus="onFocus()",
     @blur="onBlur()"
   )
-  .user-card-group-message(v-if="showError") Поле обязательное
+  .user-card-group-message(v-if="showError") 
+    span(v-if="!this.localValue.length") Поле обязательное
+    span(v-if="this.localValue.length !== 3") Некорректное значение
 </template>
 
 <script>
@@ -21,7 +23,7 @@ export default {
       this.emitValue(this.localValue);
     },
     checkValue() {
-      if (!this.localValue.length) this.showError = true;
+      if (!this.localValue.length || this.localValue.length !== 3 ) this.showError = true;
       else this.showError = false;
     },
   },

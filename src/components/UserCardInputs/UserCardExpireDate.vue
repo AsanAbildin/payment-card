@@ -96,6 +96,8 @@ export default {
     checkValue() {
       if (!this.month || !this.year) this.showError = true;
       else this.showError = false;
+
+      this.$emit('input', `${this.month}/${this.year}`)
     },
     setValue(val, name) {
       if (name === "month") this.showDropdownMonth = false;

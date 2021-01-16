@@ -180,6 +180,11 @@ export default {
   padding: 10px 15px 8px;
   position: relative;
 
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px $colorPrimary;
+  }
+
   &--primary {
     color: $colorWhite;
     background-color: $colorPrimary;

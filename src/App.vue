@@ -25,12 +25,12 @@ export default {
 
   data() {
     return {
-      loading: true,
+      loading: false,
     }
   },
 
   methods: {
-    submitClick() {
+    submitClick(val) {
       let hasError = false
       this.$refs.userCardForm.$children.forEach(comp => {
         comp.checkValue()
@@ -40,8 +40,9 @@ export default {
       const userData = this.$refs.userCardForm.getFormData()
 
       console.log(userData)
+      console.log(val)
 
-      this.valid = !hasError
+      this.valid = !hasError && val
 
       if (this.valid) {
         this.getRequest()

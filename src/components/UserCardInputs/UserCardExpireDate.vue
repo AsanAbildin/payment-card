@@ -7,6 +7,7 @@
         v-mask="'##'",
         v-model="month",
         ref="card-expire-month",
+        :readonly="readonly",
         @focus="onFocus()",
         @blur="onBlur()"
       )
@@ -22,6 +23,7 @@
       select#card-expire-month-label.user-card-select(
         tabindex="-1",
         ref="card-expire-month-select"
+        :readonly="readonly",
       )
         option(v-for="opt in monthOptions") {{ opt }}
     span.user-card-divider /
@@ -30,6 +32,7 @@
         v-mask="'##'",
         v-model="year",
         ref="card-expire-year",
+        :readonly="readonly",
         @focus="onFocus()",
         @blur="onBlur()"
       )
@@ -44,6 +47,7 @@
       )
       select#card-expire-year-label.user-card-select(
         tabindex="-1",
+        :readonly="readonly",
         ref="card-expire-month-select"
       )
         option(v-for="opt in monthOptions") {{ opt }}
@@ -99,6 +103,7 @@ export default {
       this[name] = val;
     },
     cardExpireClick(selectName) {
+      if (this.readonly) return
       if (selectName === "month") {
         this.showDropdownMonth = !this.showDropdownMonth;
         this.$refs["card-expire-month"].focus();

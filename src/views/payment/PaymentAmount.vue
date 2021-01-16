@@ -16,7 +16,7 @@
         .desc-item-key Итоговая сумма:
         .desc-item-value {{ completeAmount }}
   .payment-amount-action.mt-1
-    button.btn.btn--primary.btn--full(@click="submitClick") Оплатить
+    button.btn.btn--primary.btn--full(:class="{'btn--loading': loading}" @click="submitClick") Оплатить
 
     label.checkbox.mt-1
       input.checkbox-input(type="checkbox", v-model="checked")
@@ -33,6 +33,12 @@
 
 <script>
 export default {
+  props: {
+    loading: {
+      type: Boolean,
+      default: () => false
+    },
+  },
   data() {
     return {
       amount: "",
@@ -64,7 +70,10 @@ export default {
   methods: {
     submitClick() {
       if (this.checked && this.intAmount > 0) {
-        this.$emit("submitClick", this.intAmount);
+        this.$emit("submitClick", {
+          amount: this.intAmount,
+          comisison: this.comission
+        });
         this.showError = false;
       } else {
         this.$emit("submitClick", false);
@@ -169,6 +178,7 @@ export default {
   background-color: transparent;
   transition: 0.2s;
   padding: 10px 15px 8px;
+  position: relative;
 
   &--primary {
     color: $colorWhite;
@@ -176,8 +186,43 @@ export default {
     border-color: $colorPrimary;
   }
 
+  &--loading {
+    color: transparent;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      margin-top: -5px;
+      left: 50%;
+      margin-left: -5px;
+      width: 10px;
+      height: 10px;
+      border: 2px solid transparent;
+      border-top-color: $colorWhite;
+      border-right-color: $colorWhite;
+      border-radius: 50%;
+      transform: rotate(-45deg);
+      animation-name: spin;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+  }
+
   &--full {
     width: 100%;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(-45deg);
+  }
+  50% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(675deg);
   }
 }
 </style>

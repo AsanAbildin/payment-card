@@ -7,11 +7,11 @@
           img(src="../assets/imgs/visa.svg")
           img(src="../assets/imgs/mastercard.svg")
       .user-card-body
-        UserCardNumber(v-model="userCard.number")
-        UserCardName(v-model="userCard.name")
-        UserCardExpireDate(v-model="userCard.expires")
+        UserCardNumber(v-model="userCard.number" :readonly="loading")
+        UserCardName(v-model="userCard.name" :readonly="loading")
+        UserCardExpireDate(v-model="userCard.expires" :readonly="loading")
     .user-card.user-card--back
-      UserCardCvc(v-model="userCard.cvc")
+      UserCardCvc(v-model="userCard.cvc" :readonly="loading")
 </template>
 
 <script>
@@ -27,10 +27,23 @@ export default {
     UserCardCvc,
   },
 
+  props: {
+    loading: {
+      type: Boolean,
+      default: () => false
+    },
+  },
+
   data() {
     return {
       userCard: {},
     };
+  },
+
+  methods: {
+    getFormData() {
+      return this.userCard
+    }
   },
 };
 </script>

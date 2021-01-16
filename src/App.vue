@@ -2,9 +2,9 @@
 #app
   .container.text-center
     .col.col-card
-      UserCardForm(ref="userCardForm")
+      UserCardForm(ref="userCardForm", :loading="loading")
     .col.col-payment
-      router-view(@submitClick="submitClick")
+      router-view(@submitClick="submitClick", :loading="loading")
 </template>
 
 <script>
@@ -25,8 +25,7 @@ export default {
 
   data() {
     return {
-      valid: false,
-      loading: false,
+      loading: true,
     }
   },
 
@@ -37,6 +36,10 @@ export default {
         comp.checkValue()
         if (comp.showError) hasError = true
       })
+
+      const userData = this.$refs.userCardForm.getFormData()
+
+      console.log(userData)
 
       this.valid = !hasError
 

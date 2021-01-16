@@ -4,6 +4,7 @@
   input#user-card-cvc.user-card-input.user-card-input--cvc(
     v-mask="'###'",
     v-model="localValue",
+    :readonly="readonly",
     @change="inputHandler",
     @focus="onFocus()",
     @blur="onBlur()"

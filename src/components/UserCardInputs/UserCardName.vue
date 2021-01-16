@@ -5,6 +5,7 @@
     input#user-card-name.user-card-input.user-card-input--name(
       v-mask="{ mask: 'S'.repeat(255), tokens: {S: { pattern: /[a-z A-Z]/ }}}",
       v-model="localValue",
+      :readonly="readonly",
       @input="inputHandler",
       @focus="onFocus()",
       @blur="onBlur()"

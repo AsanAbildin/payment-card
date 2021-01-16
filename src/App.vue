@@ -9,6 +9,7 @@
 
 <script>
 import UserCardForm from "./components/UserCardForm";
+import { mapActions } from 'vuex'
 
 const randomResponse = () => {
   return new Promise((resolve) => {
@@ -30,6 +31,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['setPaymentData']),
     submitClick(val) {
       let hasError = false
       this.$refs.userCardForm.$children.forEach(comp => {
@@ -39,17 +41,22 @@ export default {
 
       const userData = this.$refs.userCardForm.getFormData()
 
-      console.log(userData)
-      console.log(val)
-
       this.valid = !hasError && val
 
-      if (this.valid) {
-        this.getRequest()
-        .then((res) => {
-          console.log(res)
-        })
-      }
+      if (!this.valid) return
+
+      this.setPaymentData({...userData, ...val})
+
+      this.getRequest()
+      .then((res) => {
+        console.log(res)
+        if (res) {
+          this.$router.push({name: 'success'})
+        }
+        else {
+          this.$router.push({name: 'error'})
+        }
+      })
     },
 
     async getRequest () {
@@ -87,6 +94,8 @@ export default {
   vertical-align: top;
 
   &-card {
+    padding-bottom: 20px;
+
     @media (min-width: 550px) {
       padding-right: 70px;
     }

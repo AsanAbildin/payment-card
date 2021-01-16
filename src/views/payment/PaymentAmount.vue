@@ -72,7 +72,7 @@ export default {
       if (this.checked && this.intAmount > 0) {
         this.$emit("submitClick", {
           amount: this.intAmount,
-          comisison: this.comission
+          comission: this.comission
         });
         this.showError = false;
       } else {
@@ -90,10 +90,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.mt-1 {
-  margin-top: 15px;
-}
-
 .desc {
   &-item {
     overflow: hidden;
@@ -167,67 +163,6 @@ export default {
       border-color: $colorPrimary;
       outline: none;
     }
-  }
-}
-
-.btn {
-  border-radius: 20px;
-  border: 2px solid;
-  text-transform: uppercase;
-  font-size: $fz2;
-  background-color: transparent;
-  transition: 0.2s;
-  padding: 10px 15px 8px;
-  position: relative;
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 5px $colorPrimary;
-  }
-
-  &--primary {
-    color: $colorWhite;
-    background-color: $colorPrimary;
-    border-color: $colorPrimary;
-  }
-
-  &--loading {
-    color: transparent;
-
-    &:before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      margin-top: -5px;
-      left: 50%;
-      margin-left: -5px;
-      width: 10px;
-      height: 10px;
-      border: 2px solid transparent;
-      border-top-color: $colorWhite;
-      border-right-color: $colorWhite;
-      border-radius: 50%;
-      transform: rotate(-45deg);
-      animation-name: spin;
-      animation-duration: 2s;
-      animation-iteration-count: infinite;
-    }
-  }
-
-  &--full {
-    width: 100%;
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(-45deg);
-  }
-  50% {
-    transform: rotate(360deg);
-  }
-  100% {
-    transform: rotate(675deg);
   }
 }
 </style>

@@ -27,3 +27,124 @@ body {
   font-family: $ff;
   font-size: $fz2;
 }
+
+.mt-1 {
+  margin-top: 15px;
+}
+
+.btn {
+  border-radius: 20px;
+  border: 2px solid;
+  text-transform: uppercase;
+  font-size: $fz2;
+  background-color: transparent;
+  transition: 0.2s;
+  padding: 10px 15px 8px;
+  position: relative;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px $colorPrimary;
+  }
+
+  &--primary {
+    color: $colorWhite;
+    background-color: $colorPrimary;
+    border-color: $colorPrimary;
+  }
+
+  &--loading {
+    color: transparent;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      margin-top: -5px;
+      left: 50%;
+      margin-left: -5px;
+      width: 10px;
+      height: 10px;
+      border: 2px solid transparent;
+      border-top-color: $colorWhite;
+      border-right-color: $colorWhite;
+      border-radius: 50%;
+      transform: rotate(-45deg);
+      animation-name: spin;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+  }
+
+  &--full {
+    width: 100%;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(-45deg);
+  }
+  50% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(675deg);
+  }
+}
+
+.message {
+  color: $colorGrey;
+  text-align: center;
+  min-width: 225px;
+
+  &-title {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-weight normal
+    font-size $fz3
+  }
+
+  &-body {
+    font-size: $fz1;
+  }
+
+  &-action {
+    margin-top: 20px;
+  }
+
+  &-icon {
+    display: inline-block;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+
+    &:before {
+      color: $colorWhite;
+      vertical-align: middle;
+      line-height: 100px;
+      display inline-block
+    }
+
+    &--success {
+      background-color $colorPrimary;
+
+      &:before {
+        content: '\2713';
+        font-size: 50px;
+        font-weight: bold;
+      }
+    }
+
+    &--error {
+      background-color $colorPrimary;
+
+      &:before {
+        content: '+';
+        color: $colorWhite;
+        font-size: 100px;
+        transform: rotate(45deg);
+      }
+    }
+  }
+}

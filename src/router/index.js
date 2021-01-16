@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import PaymentAmount from '../views/payment/PaymentAmount.vue'
-import PaymentResponse from '../views/payment/PaymentResponse.vue'
+import PaymentError from '../views/payment/PaymentError.vue'
+import PaymentSuccess from '../views/payment/PaymentSuccess.vue'
 
 Vue.use(VueRouter)
 
@@ -13,9 +14,14 @@ const routes = [
     component: PaymentAmount
   },
   {
-    path: '/response',
-    name: 'response',
-    component: PaymentResponse
+    path: '/success',
+    name: 'success',
+    component: PaymentSuccess
+  },
+  {
+    path: '/error',
+    name: 'error',
+    component: PaymentError
   }
 ]
 

@@ -1,9 +1,10 @@
 <template lang="pug">
-.payment-amount
+form.payment-amount(@submit.prevent="submitClick()")
   input.payment-amount-input(
     placeholder="СУММА ПЛАТЕЖА",
     v-model="amount",
     v-money="{precision: 0, suffix: ' ₸', thousands: ' ', masked: false}",
+    :readonly="loading"
     @input="inputHandler"
   )
   .payment-amount-error(v-if="showError && !(this.intAmount > 0)") Введите сумму
@@ -16,7 +17,10 @@
         .desc-item-key Итоговая сумма:
         .desc-item-value {{ completeAmount }}
   .payment-amount-action.mt-1
-    button.btn.btn--primary.btn--full(:class="{'btn--loading': loading}" @click="submitClick") Оплатить
+    button.btn.btn--primary.btn--full(
+      :class="{'btn--loading': loading}"
+      type="submit"
+    ) Оплатить
 
     label.checkbox.mt-1
       input.checkbox-input(type="checkbox", v-model="checked")

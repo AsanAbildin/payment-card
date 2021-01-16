@@ -18,7 +18,7 @@
         span.message-body-value {{ paymentData.comission }}
 
     .message-action
-      button.btn.btn--primary.btn--full(@click="buttonClick()") Повторить
+      button.btn.btn--primary.btn--full(@click="buttonClick()") OK
 
 </template>
 

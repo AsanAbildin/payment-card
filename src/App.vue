@@ -4,7 +4,8 @@
     .col.col-card
       UserCardForm(ref="userCardForm", :loading="loading")
     .col.col-payment
-      router-view(@submitClick="submitClick", :loading="loading")
+      transition(name="fade")
+        router-view(@submitClick="submitClick", :loading="loading")
 </template>
 
 <script>
@@ -49,7 +50,6 @@ export default {
 
       this.getRequest()
       .then((res) => {
-        console.log(res)
         if (res) {
           this.$router.push({name: 'success'})
         }
@@ -79,6 +79,15 @@ export default {
   overflow-x: hidden;
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter, .fade-leave-to {
+  position absolute
+  opacity: 0;
+}
+
 .container {
   max-width: 960px;
   padding: 0 10px;
@@ -92,6 +101,7 @@ export default {
 .col {
   display: inline-block;
   vertical-align: top;
+  position: relative;
 
   &-card {
     padding-bottom: 20px;

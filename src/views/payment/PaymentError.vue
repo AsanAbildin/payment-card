@@ -14,12 +14,6 @@
         this.$router.push({ name: 'payment'})
       }
     },
-
-    beforeRouteEnter(to, from, next) {
-      next(vm => {
-        console.log(vm.$store.getters.getPaymentData)
-      })
-    }
   }
 </script>
 
